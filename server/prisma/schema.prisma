@@ -1,0 +1,157 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String? @default(cuid())
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  password          String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id        String   @id @map("_id")
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+}
+
+model User {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String         @unique
+  emailVerified Boolean?       @default(false)
+  image         String?
+  role          Role           @default(USER)
+  status        UserStatus     @default(ACTIVE)
+  suspendedTime Int            @default(0)
+  accounts      Account[]
+  cartItem      CartItem[]
+  orderHistory  OrderHistory[]
+}
+
+enum Role {
+  USER
+  ADMIN
+  MOD
+}
+
+enum UserStatus {
+  ACTIVE
+  BANNED
+  SUSPENDED
+}
+
+model OrderHistory {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String             @db.ObjectId
+  User             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  OrderHistoryItem OrderHistoryItem[]
+}
+
+model CartItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  variantId String   @db.ObjectId
+  productId String   @db.ObjectId
+  quantity  Int
+  createdAt DateTime @default(now())
+  userId    String   @db.ObjectId
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, userId])
+}
+
+model OrderHistoryItem {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  orderHistoryId String        @db.ObjectId
+  productId      String        @db.ObjectId
+  quantity       Int
+  createdAt      DateTime      @default(now())
+  OrderHistory   OrderHistory? @relation(fields: [orderHistoryId], references: [id], onDelete: Cascade)
+}
+
+model Product {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  price          Float
+  list_price     Float
+  discount       Float          @default(0)
+  type           String
+  quantity_total Int
+  brand          String
+  variants       Variants[]
+  images         ProductImage[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model Variants {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId String  @db.ObjectId
+  quantity  Int
+  sku       String
+  barcode   String?
+  options   String?
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductImage {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId String  @db.ObjectId
+  url       String
+  alt       String
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model IpRateLimit {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  ipAddress   String   @unique
+  createdTime DateTime @default(now())
+  totalHits   Int      @default(0)
+}
+
+model City {
+  mongoId   String      @id @default(auto()) @map("_id") @db.ObjectId
+  name      String      @unique
+  id        String      @unique
+  Districts Districts[]
+}
+
+model Districts {
+  mongoId     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String  @unique
+  id          String  @unique
+  City        City    @relation(fields: [cityMongoId], references: [mongoId], onDelete: Cascade)
+  cityMongoId String  @db.ObjectId
+  Wards       Wards[]
+}
+
+model Wards {
+  mongoId          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name             String    @unique
+  id               String    @unique
+  Districts        Districts @relation(fields: [districtsMongoId], references: [mongoId], onDelete: Cascade)
+  districtsMongoId String    @db.ObjectId
+  Level            Level[]
+}
+
+model Level {
+  mongoId      String @id @default(auto()) @map("_id") @db.ObjectId
+  name         String @unique
+  id           String @unique
+  Wards        Wards  @relation(fields: [wardsMongoId], references: [mongoId], onDelete: Cascade)
+  wardsMongoId String @db.ObjectId
+}

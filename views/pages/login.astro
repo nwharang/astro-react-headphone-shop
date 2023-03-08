@@ -1,0 +1,9 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Home from "@components/login/index.jsx";
+const RECAPTCHA_KEY: string = import.meta.env.RECAPTCHA_KEY;
+---
+
+<Layout title="Login">
+  <Home client:only="react" recaptchaKey={RECAPTCHA_KEY} />
+</Layout>

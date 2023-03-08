@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  transition: all;
+  transition-duration: 300ms;
+  transition-timing-function: ease-out;
+}
+
+h3 {
+  @apply text-xl leading-10 underline decoration-2 underline-offset-4;
+}
