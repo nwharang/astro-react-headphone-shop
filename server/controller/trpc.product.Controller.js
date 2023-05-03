@@ -3,6 +3,7 @@ import rateLimitAdapter from "../model/rateLimiter.js";
 import prisma from "../utils/connectDB.js";
 import { middleware, publicProcedure } from "../utils/trpc.js";
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 
 
 const useRateLimiter = middleware(async ({ ctx, next }) => {
@@ -13,8 +14,8 @@ const useRateLimiter = middleware(async ({ ctx, next }) => {
         ctx.req.connection.remoteAddress;
     let rateLimiter = await rateLimitAdapter(prisma).validateIp(
         getIP(),
-        20,
-        5 * 60 * 1000
+        2,
+        1 * 60 * 1000
     );
     // rateLimiter returns null then
     if (!rateLimiter) {

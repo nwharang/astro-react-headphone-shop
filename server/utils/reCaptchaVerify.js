@@ -5,6 +5,7 @@ export const reCaptchaVerify = async (gReCaptchaToken) => {
     .post(
       "https://www.google.com/recaptcha/api/siteverify",
       {
+        // eslint-disable-next-line no-undef
         secret: process.env.RECAPTCHA_SECRET,
         response: gReCaptchaToken,
       },

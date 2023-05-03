@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import bcrypt from "bcrypt";
 import expressSession from "express-session";
@@ -9,7 +10,7 @@ import PrismaAdapter from "../model/user.js";
 import prisma from "../utils/connectDB.js";
 import { reCaptchaVerify } from "../utils/reCaptchaVerify.js";
 
-export const Passport = (app, express) => {
+export const Passport = (app) => {
   app.use(
     expressSession({
       cookie: {
@@ -24,7 +25,6 @@ export const Passport = (app, express) => {
         checkPeriod: 24 * 60 * 60 * 1000, //ms
         dbRecordIdIsSessionId: false,
         dbRecordIdFunction: undefined,
-        checkPeriod: 24 * 60 * 60 * 1000, // ms
       }),
     })
   );

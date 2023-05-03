@@ -78,15 +78,17 @@ export default function PrismaAdapter(p) {
       return data
     },
     updateCart: () => { },
-    deleteCartItem: (data) =>
-      p.cartItem.delete({
+    deleteCartItem: (data) => {
+      const { variantId, userId } = data;
+      return p.cartItem.delete({
         where: {
           variantId_userId: {
             variantId,
             userId
           }
         },
-      }),
+      })
+    }
   };
 }
 

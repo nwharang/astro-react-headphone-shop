@@ -57,7 +57,7 @@ export default function PrismaAdapter(p) {
           quantity: true,
         },
       }),
-    getProductSearch: (_) =>
+    getProductSearch: () =>
       p.product.findMany({
         where: {
           quantity_total: {

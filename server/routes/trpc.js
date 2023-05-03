@@ -2,7 +2,7 @@ import { router } from "../utils/trpc.js";
 import { productId, product, productSearch } from "../controller/trpc.product.Controller.js";
 import { register, userInfo } from "../controller/trpc.user.Controller.js";
 import { test } from "../controller/trpc.test.Controller.js";
-import { addToCart, getCartItem, deleteCart, updateCart } from "../controller/trpc.cart.Controller.js";
+import { addToCart, getCartItem, } from "../controller/trpc.cart.Controller.js";
 
 const productRouter = router({
     all: product,

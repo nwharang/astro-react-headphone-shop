@@ -1,5 +1,7 @@
 import { ZodError } from "zod";
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
+import prisma from './connectDB.js';
+import rateLimitAdapter from '../model/rateLimiter.js'
 /**
  * You should initialize tRPC exactly once per application. Multiple instances of tRPC will cause issues.
  */
