@@ -5,7 +5,7 @@ import { __dirname } from "../utils/dirname.js";
 
 const logEvents = async (app) => {
   let accessLogStream = fs.createWriteStream(
-    path.join(__dirname, "..", "logs", "reqLog.txt"),
+    path.join(__dirname, "..", "logs", "reqLog.log"),
     { flags: "a" }
   );
   app.use(

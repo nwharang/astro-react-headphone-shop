@@ -19,6 +19,7 @@ export default defineConfig({
     client: "./build/client/",
     server: "./build/server/",
     serverEntry: "index.mjs",
+    assets: 'assets'
   },
   adapter: node({
     mode: "middleware",

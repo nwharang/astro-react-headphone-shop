@@ -64,18 +64,18 @@ const Body = () => {
   return (
     <div className="flex h-[calc(100%-3.5rem)] flex-1 overflow-hidden">
       {/* Main Sidebar */}
-      <div className="hidden flex-shrink-0 basis-60 overflow-auto border-r border-gray-400/20 p-6 dark:border-gray-300/10 sm:block"></div>
+      <div className="hidden flex-shrink-0 basis-60 overflow-auto border-r border-gray-400/20 p-6 dark:border-gray-300/10"></div>
       {/* Main Container */}
       <div className="flex flex-grow flex-col">
         {/* Main header */}
         <div className="flex items-center justify-between border-b border-gray-400/20 dark:border-gray-300/10">
-          <a className="py-4 px-3 text-current md:px-7" href="/">
+          <a className="px-3 py-4 text-current md:px-7" href="/">
             Home /
           </a>
           <FunnelIcon className="mr-3 h-7 w-7 sm:hidden" />
         </div>
         {/* Main content */}
-        <div className="sm:text-md flex h-full flex-row flex-wrap gap-y-2 overflow-y-scroll scroll-smooth bg-white/40 py-5 px-5 text-sm leading-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-black dark:bg-black/40 dark:scrollbar-thumb-white">
+        <div className="sm:text-md flex h-full flex-row flex-wrap gap-y-2 overflow-y-scroll scroll-smooth bg-white/40 px-5 py-5 text-sm leading-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-black dark:bg-black/40 dark:scrollbar-thumb-white">
           {data.pages.map((page) =>
             page.items.map((e, k) => {
               return (
@@ -91,11 +91,11 @@ const Body = () => {
                         alt={e.images[0].alt}
                         className="absolute z-0 aspect-square w-full rounded-lg object-cover shadow-lg shadow-slate-300 dark:shadow-slate-600"
                       />
-                      <span className="absolute top-0 left-0 p-2 font-bold text-black">
+                      <span className="absolute left-0 top-0 p-2 font-bold text-black">
                         {e.quantity_total > 0 ? "In Stock" : "Out Of Stock"}
                       </span>
                       {e.discount && (
-                        <span className="absolute top-0 right-0 rounded-lg bg-sky-600 px-2 py-1 text-white">
+                        <span className="absolute right-0 top-0 rounded-lg bg-sky-600 px-2 py-1 text-white">
                           {e.discount}%
                         </span>
                       )}
