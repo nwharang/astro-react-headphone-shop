@@ -11,7 +11,7 @@ const Home = () => {
     trpc.createClient({
       links: [
         httpLink({
-          url: `http://localhost:${config.serverPort}/trpc`,
+          url: `${config.host}/trpc`,
         }),
       ],
     })
