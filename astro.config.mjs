@@ -1,6 +1,5 @@
 import node from "@astrojs/node";
 import { defineConfig } from "astro/config";
-
 // https://astro.build/config
 import tailwind from "@astrojs/tailwind";
 
@@ -9,6 +8,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 import sitemap from "@astrojs/sitemap";
+import config from "@/utils/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,15 +29,15 @@ export default defineConfig({
       noExternal: ["path-to-regexp"],
     },
   },
-  site: "http://localhost:3000",
+  site: `http://${config.host}/trpc`,
   integrations: [
     tailwind(),
     react(),
     sitemap({
       customPages: [
-        "http://localhost:3000",
-        "http://localhost:3000/p",
-        "http://localhost:3000/about",
+        `http://${config.host}/trpc`,
+        `http://${config.host}/trpc/p`,
+        `http://${config.host}/trpc/about`,
       ],
     }),
   ],
