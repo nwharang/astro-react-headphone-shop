@@ -35,7 +35,7 @@ const register = publicProcedure
                 .string()
                 .max(32, "Name must contain at most 32 character(s)")
                 .min(3, "Name must contain at least 3 character(s)"),
-            gReCaptchaToken: z.string().min(100, "Captcha token invalid"),
+            gReCaptchaToken: z.string(),
         })
     )
     .mutation(async ({ input, ctx }) => {
