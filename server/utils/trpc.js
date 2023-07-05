@@ -57,8 +57,8 @@ const useRateLimiter = middleware(async ({ ctx, next }) => {
         ctx.req.connection.remoteAddress;
     let rateLimiter = await rateLimitAdapter(prisma).validateIp(
         getIP(),
-        20,
-        5 * 60 * 1000
+        5,
+        1 * 60 * 1000
     );
     // rateLimiter returns null then
     if (!rateLimiter) {
