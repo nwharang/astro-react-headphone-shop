@@ -1,8 +1,12 @@
 import { router } from "../utils/trpc.js";
 import { productId, product, productSearch } from "../controller/trpc.product.Controller.js";
 import { register, userInfo } from "../controller/trpc.user.Controller.js";
-import { test } from "../controller/trpc.test.Controller.js";
+import error from "../controller/trpc.test.Controller.js";
 import { addToCart, getCartItem, } from "../controller/trpc.cart.Controller.js";
+
+const errorRouter = router({
+    ...error
+})
 
 const productRouter = router({
     all: product,
@@ -22,7 +26,7 @@ const cartRouter = router({
 })
 
 const appRouter = router({
-    "": test,
+    error: errorRouter,
     product: productRouter,
     user: userRouter,
     cart: cartRouter
