@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { publicProcedure } from "../utils/trpc.js";
 
-const errorCreate = (code) = publicProcedure.query(() => {
+const errorCreate = (code) => publicProcedure.query(() => {
     throw new TRPCError({ code })
 })
 
